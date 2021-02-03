@@ -1,21 +1,39 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+import { Reg } from './src/components/Reg.js';
+import { Main } from './src/components/Main.js';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+// const axios = require('axios').default;
+
+// axios
+//     .get('/user?ID=12345')
+//     .then(function (response) {
+//         // handle success
+//         console.log(response);
+//     })
+//     .catch(function (error) {
+//         // handle error
+//         console.log(error);
+//     })
+//     .then(function () {
+//         // always executed
+//     });
+
+export default function App() {
+    const [account, setAccount] = useState(false);
+
+    const newUserRegistration = (date) => {
+        console.log(date);
+        setAccount({
+            date,
+            name: 'Nikita',
+        });
+    };
+
+    return account ? (
+        <Main></Main>
+    ) : (
+        <Reg newUserRegistration={newUserRegistration}></Reg>
+    );
+}
