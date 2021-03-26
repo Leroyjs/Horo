@@ -16,29 +16,13 @@ import { HoroText } from '../HoroText';
 import { Statistics } from '../Statistics';
 import { MainButtonTransparent } from '../UI/MainButtonTransparent';
 
-const choiceItems = [
-    {
-        mainText: 'Сегодня',
-        subText: '12.05',
-        link: '',
-    },
-    {
-        mainText: 'Завтра',
-        subText: '12.05',
-        link: '',
-    },
-    {
-        mainText: 'Месяц',
-        subText: '12.05',
-        link: '',
-    },
-    {
-        mainText: 'Год',
-        subText: '12.05',
-        link: '',
-    },
-];
+import { useSelector, useDispatch } from 'react-redux';
+
+import { Base64 } from 'js-base64';
+
 const img = require('../../../assets/exPhoto.png');
+
+const axios = require('axios').default;
 
 const content = [
     {
@@ -71,12 +55,72 @@ const statistics = [
 ];
 
 export const MainPage = ({ navigation }) => {
+    const [activeItem, setActiveItem] = useState(0);
+    const [zodiacHoroscope, setZodiacHoroscope] = useState({
+        text: [],
+        metrics: [],
+    });
+
+    let account = useSelector((state) => state.account);
+    // console.log(account.zodiac.id);
+
     const goToCompatibility = () => {
         navigation.navigate('CompatibilityConfiguration');
     };
     const shareHandler = () => {
         console.log('share');
     };
+
+    const choiceItems = [
+        {
+            mainText: 'Сегодня',
+            subText: '12.05',
+            handle: () => handleZodiac(0),
+        },
+        {
+            mainText: 'Завтра',
+            subText: '12.05',
+            handle: () => handleZodiac(1),
+        },
+        {
+            mainText: 'Месяц',
+            subText: '12.05',
+            handle: () => handleZodiac(2),
+        },
+        {
+            mainText: 'Год',
+            subText: '12.05',
+            handle: () => handleZodiac(3),
+        },
+    ];
+    useEffect(() => {
+        handleZodiac(0);
+    });
+    const handleZodiac = (index) => {
+        let url = 'https://ho-ro.ru/v1/horoscopes/search';
+        console.log(account);
+        axios
+            .get(
+                url,
+
+                {
+                    headers: {
+                        Authorization:
+                            'Basic ' + Base64.encode(account.token + ':'),
+                    },
+                    params: { zodiac_id: account.zodiac.id, d: index },
+                }
+            )
+            .then(function (response) {
+                console.log(response.data);
+                setActiveItem(index);
+                setZodiacHoroscope(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+
     return (
         <ScrollView style={styles.scrollView}>
             <View style={styles.scrollViewInner}>
@@ -85,9 +129,12 @@ export const MainPage = ({ navigation }) => {
                     shareHandler={shareHandler}
                 ></MainHeader>
                 <HoroImg img={img}></HoroImg>
-                <HorizontalScroll choiceItems={choiceItems}></HorizontalScroll>
-                <HoroText content={content}></HoroText>
-                <Statistics statistics={statistics}></Statistics>
+                <HorizontalScroll
+                    activeItemId={activeItem}
+                    choiceItems={choiceItems}
+                ></HorizontalScroll>
+                <HoroText content={zodiacHoroscope.text}></HoroText>
+                <Statistics statistics={zodiacHoroscope.metrics}></Statistics>
                 <View style={{ marginTop: 20 }}>
                     <MainButtonTransparent
                         pressHandler={goToCompatibility}

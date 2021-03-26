@@ -12,9 +12,11 @@ import {
 import { Header } from '../Header';
 import { ZodiacSignList } from '../ZodiacSignList';
 
+import { zodiacs } from '../../zodiac';
+
 export const AllZodiacSignsPage = ({ navigation }) => {
     const goToZodiacSign = (index) => {
-        console.log(zodiacSignList[index].title);
+        console.log(zodiacs[index].title);
     };
     return (
         <ScrollView style={styles.scrollView}>
@@ -26,7 +28,7 @@ export const AllZodiacSignsPage = ({ navigation }) => {
                 </Header>
                 <ZodiacSignList
                     changeActiveZodiac={goToZodiacSign}
-                    zodiacSignList={zodiacSignList}
+                    zodiacSignList={zodiacs}
                 ></ZodiacSignList>
             </View>
         </ScrollView>
@@ -50,54 +52,3 @@ const styles = StyleSheet.create({
         height: 50,
     },
 });
-
-const zodiacSignList = [
-    {
-        img: require('../../../assets/zodiacSigns/Овен.png'),
-        title: 'Овен',
-    },
-    {
-        img: require('../../../assets/zodiacSigns/Телец.png'),
-        title: 'Телец',
-    },
-    {
-        img: require('../../../assets/zodiacSigns/Близнецы.png'),
-        title: 'Близнецы',
-    },
-    {
-        img: require('../../../assets/zodiacSigns/Рак.png'),
-        title: 'Рак',
-    },
-    {
-        img: require('../../../assets/zodiacSigns/Лев.png'),
-        title: 'Лев',
-    },
-    {
-        img: require('../../../assets/zodiacSigns/Дева.png'),
-        title: 'Дева',
-    },
-    {
-        img: require('../../../assets/zodiacSigns/Весы.png'),
-        title: 'Весы',
-    },
-    {
-        img: require('../../../assets/zodiacSigns/Скорпион.png'),
-        title: 'Скорпион',
-    },
-    {
-        img: require('../../../assets/zodiacSigns/Стрелец.png'),
-        title: 'Стрелец',
-    },
-    {
-        img: require('../../../assets/zodiacSigns/Козерог.png'),
-        title: 'Козерог',
-    },
-    {
-        img: require('../../../assets/zodiacSigns/Водолей.png'),
-        title: 'Водолей',
-    },
-    {
-        img: require('../../../assets/zodiacSigns/Рыбы.png'),
-        title: 'Рыбы',
-    },
-];

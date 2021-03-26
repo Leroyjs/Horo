@@ -96,21 +96,21 @@ const tabsList = [
 ];
 const friendsList = [
     {
-        id: 0,
+        id: '0',
         name: 'Иван',
         zodiac: 'Овен',
         date: '18.04.1996',
         avatar: false,
     },
     {
-        id: 1,
+        id: '1',
         name: 'Елизавета',
         zodiac: 'Телец',
         date: '18.04.1996',
         avatar: false,
     },
     {
-        id: 2,
+        id: '2',
         name: 'Саня',
         zodiac: 'Рак',
         date: '18.04.1996',

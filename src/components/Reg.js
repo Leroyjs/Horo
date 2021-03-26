@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
-import { Date } from './Date';
+import { getZodiacSign } from '../getZodiacSign';
+
+import { DatePicker } from './DatePicker';
 import { MainButton } from './UI/MainButton';
 import { CircleButtonBorder } from './UI/CircleButtonBorder';
 import { GenderSelection } from './GenderSelection';
@@ -11,9 +13,18 @@ const fb = require('../../assets/socials/fb.png');
 const ok = require('../../assets/socials/ok.png');
 
 export const Reg = ({ newUserRegistration }) => {
+    const [date, setDate] = useState();
+    const [zodiacSign, setZodiacSign] = useState({});
+    const [gender, setGender] = useState(2);
+
     const pressHandler = () => {
-        newUserRegistration('25.12.2020');
+        newUserRegistration({ date, gender, zodiacSign });
     };
+    const newDate = (date) => {
+        setZodiacSign(getZodiacSign(date));
+        setDate(date);
+    };
+
     return (
         <View style={styles.regWrapper}>
             <View style={styles.textWrapper}>
@@ -23,9 +34,14 @@ export const Reg = ({ newUserRegistration }) => {
                     вас и ваших друзей:
                 </Text>
             </View>
-            <Date></Date>
-            <GenderSelection></GenderSelection>
-            <Text style={styles.text}>Вы - Чертjjj</Text>
+            <DatePicker handleDate={newDate}></DatePicker>
+            <GenderSelection
+                handleGender={setGender}
+                activeGender={gender}
+            ></GenderSelection>
+            <Text style={styles.text}>
+                Вы - {zodiacSign && zodiacSign.title}
+            </Text>
             <MainButton
                 pressHandler={pressHandler}
                 text="Продолжить"

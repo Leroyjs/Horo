@@ -9,7 +9,7 @@ import {
     Dimensions,
 } from 'react-native';
 
-export const CompatibilityHeader = ({}) => {
+export const CompatibilityHeader = ({ first, second }) => {
     return (
         <View style={styles.compatibilityHeaderWrapper}>
             <View style={styles.compatibilityHeaderItemsWrapper}>

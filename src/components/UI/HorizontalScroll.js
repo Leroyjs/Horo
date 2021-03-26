@@ -10,20 +10,46 @@ import {
 
 const deviceWidth = Dimensions.get('window').width;
 
-export const HorizontalScroll = ({ choiceItems = [] }) => {
+export const HorizontalScroll = ({ choiceItems = [], activeItemId = 0 }) => {
     return (
         <ScrollView style={styles.choiceItemWrapper} horizontal={true}>
             <View style={styles.choiceItemWrapperInner}>
-                {choiceItems.map((item) => (
+                {choiceItems.map((item, index) => (
                     <TouchableOpacity
                         key={item.mainText + item.subText}
-                        style={styles.choiceItem}
+                        style={
+                            index === activeItemId
+                                ? styles.choiceItem
+                                : {
+                                      ...styles.choiceItem,
+                                      ...styles.choiceItemActive,
+                                  }
+                        }
+                        onPress={item.handle}
                     >
-                        <Text style={styles.choiceItemMainText}>
+                        <Text
+                            style={
+                                index === activeItemId
+                                    ? styles.choiceItemMainText
+                                    : {
+                                          ...styles.choiceItemMainText,
+                                          ...styles.choiceItemMainTextActive,
+                                      }
+                            }
+                        >
                             {item.mainText}
                         </Text>
                         {item.subText && (
-                            <Text style={styles.choiceItemDate}>
+                            <Text
+                                style={
+                                    index === activeItemId
+                                        ? styles.choiceItemDate
+                                        : {
+                                              ...styles.choiceItemDate,
+                                              ...styles.choiceItemMainTextActive,
+                                          }
+                                }
+                            >
                                 {item.subText}
                             </Text>
                         )}
@@ -62,5 +88,11 @@ const styles = StyleSheet.create({
         color: '#31426E',
         lineHeight: 22,
         fontSize: 16,
+    },
+    choiceItemActive: {
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    },
+    choiceItemMainTextActive: {
+        color: 'rgba(255, 255, 255, 0.4)',
     },
 });
