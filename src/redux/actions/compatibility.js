@@ -1,9 +1,9 @@
-import { SET_COMPATIBILITY } from '../actions/types';
+import { SET_COMPATIBILITY } from "../types";
 
-function compatibility(accountData) {
-    return {
-        type: SET_COMPATIBILITY,
-        payload: accountData,
-    };
+function setCompatibility(accountData) {
+  return {
+    type: SET_COMPATIBILITY,
+    payload: accountData,
+  };
 }
-export { compatibility };
+export { setCompatibility };

@@ -1,27 +1,32 @@
-import { NEW_USER_REGISTRATION } from '../actions/types';
+import { NEW_USER_REGISTRATION, EDIT_PROFILE_SAVE } from "../types";
 
 const initialState = false;
 
-// const initialState = {
-//     date: {
-//         day: 4,
-//         month: 2,
-//         year: 2001,
-//     },
-//     gender: 'male',
-//     token: 'gAaKh8H28nZxN_TLov6Gq9wriYBqwLHu',
-//     name: 'Nikita',
-// };
-
 export const accountReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case NEW_USER_REGISTRATION:
-            return {
-                date: action.payload.date,
-                gender: action.payload.gender,
-                token: action.payload.token,
-                zodiac: action.payload.zodiac,
-            };
-    }
-    return state;
+  switch (action.type) {
+    case NEW_USER_REGISTRATION:
+      return {
+        date: action.payload.date,
+        gender: action.payload.gender,
+        token: action.payload.token,
+        zodiac: action.payload.zodiacSign,
+        name: action.payload.name,
+        avatar: action.payload.avatar,
+        fb: action.payload.fb,
+        vk: action.payload.vk,
+        ok: action.payload.ok,
+        phoneNumber: action.payload.phoneNumber,
+      };
+    case EDIT_PROFILE_SAVE:
+      return {
+        ...state,
+        gender: action.payload.gender,
+        name: action.payload.name,
+        avatar: action.payload.avatar,
+        fb: action.payload.fb,
+        vk: action.payload.vk,
+        ok: action.payload.ok,
+      };
+  }
+  return state;
 };

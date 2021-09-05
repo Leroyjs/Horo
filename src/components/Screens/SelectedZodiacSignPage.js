@@ -24,46 +24,13 @@ const img = require("../../../assets/exPhoto.png");
 
 const axios = require("axios").default;
 
-const content = [
-  {
-    type: "text",
-    content: `Насыщенный и непростой день. Будет много дел и забот. Не исключено, что придется заниматься чем-то совершенно новым, учиться на ходу. Это непросто, но увлекательно. Вы с энтузиазмом беретесь за решение сложных задач и справляетесь с тем, что оказалось не по силам другим. Окружающие не скупятся на интересные предложения; над ответом на них можно подумать до следующего года.`,
-  },
-  {
-    type: "advertising",
-    img: { uri: "https://reactjs.org/logo-og.png" },
-    url: "https://switch-case.ru/63227803",
-  },
-  {
-    type: "text",
-    content: `Вероятны знакомства с людьми, о которых вы прежде слышали много интересного, или даже личная встреча с тем, кто был вам давно заочно симпатичен. Возможно начало дружеских отношений.`,
-  },
-];
-const statistics = [
-  {
-    title: "Бизнес",
-    value: 3,
-  },
-  {
-    title: "Любовь",
-    value: 4,
-  },
-  {
-    title: "Здоровье",
-    value: 1,
-  },
-];
-
-export const MainPage = ({ navigation }) => {
-  const account = useSelector((state) => state.account);
+export const SelectedZodiacSignPage = ({ navigation }) => {
+  const activeZodiac = useSelector((state) => state.config.activeZodiac);
   const [activeItem, setActiveItem] = useState(0);
   const [zodiacHoroscope, setZodiacHoroscope] = useState({
     text: [],
     metrics: [],
   });
-
-  //   let account = useSelector((state) => state.account);
-
   const goToCompatibility = () => {
     navigation.navigate("CompatibilityConfiguration");
   };
@@ -124,7 +91,8 @@ export const MainPage = ({ navigation }) => {
     <ScrollView style={styles.scrollView}>
       <View style={styles.scrollViewInner}>
         <MainHeader
-          zodiac={account.zodiac}
+          arrow={true}
+          zodiac={activeZodiac}
           navigation={navigation}
           shareHandler={shareHandler}
         ></MainHeader>
@@ -159,3 +127,34 @@ const styles = StyleSheet.create({
     paddingVertical: 46,
   },
 });
+
+const statistics = [
+  {
+    title: "Бизнес",
+    value: 3,
+  },
+  {
+    title: "Любовь",
+    value: 4,
+  },
+  {
+    title: "Здоровье",
+    value: 1,
+  },
+];
+
+const content = [
+  {
+    type: "text",
+    content: `Насыщенный и непростой день. Будет много дел и забот. Не исключено, что придется заниматься чем-то совершенно новым, учиться на ходу. Это непросто, но увлекательно. Вы с энтузиазмом беретесь за решение сложных задач и справляетесь с тем, что оказалось не по силам другим. Окружающие не скупятся на интересные предложения; над ответом на них можно подумать до следующего года.`,
+  },
+  {
+    type: "advertising",
+    img: { uri: "https://reactjs.org/logo-og.png" },
+    url: "https://switch-case.ru/63227803",
+  },
+  {
+    type: "text",
+    content: `Вероятны знакомства с людьми, о которых вы прежде слышали много интересного, или даже личная встреча с тем, кто был вам давно заочно симпатичен. Возможно начало дружеских отношений.`,
+  },
+];
